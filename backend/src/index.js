@@ -22,9 +22,10 @@ const PORT = process.env.PORT || 8001 ;
 // allow cors 
 
 app.use(cors({
-    origin: "https://certificate-genrator-three.vercel.app/",
+    origin: ["https://certificate-genrator-three.vercel.app" , "http://localhost:5173"],
     credentials: true,
 }));
+
 
 
 // test
