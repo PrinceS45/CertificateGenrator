@@ -1,10 +1,18 @@
-import './App.css'
-import React from 'react'
-import AppRoute from './Routes/AppRoute'
-import { BrowserRouter } from 'react-router-dom'
+import './App.css';
+import React, { useEffect } from 'react';
+import AppRoute from './Routes/AppRoute';
+import { BrowserRouter } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
+import { useAuthStore } from './store/useAuthStore';
 
 function App() {
+  // Get the checkAuth function and loading state from your Zustand store
+  const { checkAuth, loading } = useAuthStore();
+
+  // This useEffect hook runs once when the component is first mounted
+  useEffect(() => {
+    checkAuth();
+  }, [checkAuth]);
 
   return (
     <>
@@ -14,10 +22,17 @@ function App() {
       </div>
 
       <BrowserRouter>
-        <AppRoute />
+        {/*
+          This is a crucial line. It ensures that the AppRoute component
+          (which contains all your pages) is only rendered after the
+          initial authentication check is complete. This prevents the
+          app from showing a "logged out" state for a split second
+          before the auth check finishes.
+        */}
+        {!loading && <AppRoute />}
       </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
