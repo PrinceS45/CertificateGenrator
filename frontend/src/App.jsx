@@ -7,13 +7,13 @@ import { useAuthStore } from './store/useAuthStore';
 
 function App() {
   // Get the checkAuth function and loading state from your Zustand store
-  const { checkAuth, loading } = useAuthStore();
+  const { checkAuth } = useAuthStore();
 
   // This useEffect hook runs once when the component is first mounted
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
-
+  
   return (
     <>
        <Toaster position="top-right" reverseOrder={false} />
@@ -29,7 +29,7 @@ function App() {
           app from showing a "logged out" state for a split second
           before the auth check finishes.
         */}
-        {!loading && <AppRoute />}
+        {<AppRoute />}
       </BrowserRouter>
     </>
   );
